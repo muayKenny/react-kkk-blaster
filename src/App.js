@@ -5,6 +5,7 @@ import Canvas from './components/Canvas';
 import * as Auth0 from 'auth0-web';
 import io from 'socket.io-client';
 
+let auth0_uri;
 if (process.env.NODE_ENV === 'production') {
   auth0_uri = process.env.REACT_APP_AUTH0_AUTHURI;
 } else {
