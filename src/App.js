@@ -1,15 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getCanvasPosition } from './utils/formulas';
 import Canvas from './components/Canvas';
 import * as Auth0 from 'auth0-web';
-import io from 'socket.io-client';
+import Io from 'socket.io-client';
+import HttpsRedirect from 'react-https-redirect'
 
 let auth0_uri;
-if (process.env.NODE_ENV === 'production') {
-  auth0_uri = process.env.REACT_APP_AUTH0_AUTHURI;
-} else {
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV !== 'production') {
   auth0_uri = 'http://localhost:5000'
+} else {
+  auth0_uri = process.env.REACT_APP_AUTH0_AUTHURI;
 }
 
 Auth0.configure({
@@ -44,7 +46,7 @@ class App extends Component {
       };
 
       this.props.loggedIn(self.currentPlayer);
-      self.socket = io('http://localhost:3001', {
+      self.socket = Io('http://localhost:3001', {
         query: `token=${Auth0.getAccessToken()}`,
       });
 
@@ -59,7 +61,7 @@ class App extends Component {
     });
 
     setInterval(() => {
-        self.props.moveObjects(self.canvasMousePosition);
+      self.props.moveObjects(self.canvasMousePosition);
     }, 10);
 
     window.onresize = () => {
@@ -91,15 +93,17 @@ class App extends Component {
 
   render() {
     return (
-      <Canvas
-        angle={this.props.angle}
-        gameState={this.props.gameState}
-        startGame={this.props.startGame}
-        players={this.props.players}
-        currentPlayer={this.props.currentPlayer}
-        trackMouse={event => (this.trackMouse(event))}
-        shoot={this.shoot}
-      />
+      <HttpsRedirect>
+        <Canvas
+          angle={this.props.angle}
+          gameState={this.props.gameState}
+          startGame={this.props.startGame}
+          players={this.props.players}
+          currentPlayer={this.props.currentPlayer}
+          trackMouse={event => (this.trackMouse(event))}
+          shoot={this.shoot}
+        />
+      </HttpsRedirect>
     );
   }
 }
