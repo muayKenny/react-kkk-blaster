@@ -21,7 +21,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "serve -s build",
+    "start": "node ./server/index & serve -s build",
     "build": "react-scripts build",
     "heroku-postbuild": "npm install && (cd ./server npm install) && npm run build",
     "test": "react-scripts test --env=jsdom",
