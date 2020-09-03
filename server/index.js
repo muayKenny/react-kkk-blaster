@@ -4,6 +4,7 @@ const io = require('socket.io')(http);
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 
+const port = process.env.PORT || 80;
 
 const client = jwksClient({
     jwksUri: process.env.JWKS_URI
@@ -50,6 +51,6 @@ io.on('connection', (socket) => {
     socket.on('new-max-score', newMaxScoreHandler);
 });
 
-http.listen(3001, () => {
-    console.log('listening on port 3001');
+http.listen(port, () => {
+    console.log(`listening on port ${port}`);
 });

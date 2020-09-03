@@ -6,6 +6,8 @@ import * as Auth0 from 'auth0-web';
 import Io from 'socket.io-client';
 import HttpsRedirect from 'react-https-redirect'
 
+const port = process.env.PORT || 80;
+
 let auth0_uri;
 console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV !== 'production') {
@@ -46,7 +48,7 @@ class App extends Component {
       };
 
       this.props.loggedIn(self.currentPlayer);
-      self.socket = Io('http://localhost:3001', {
+      self.socket = Io(`http://localhost:${port}`, {
         query: `token=${Auth0.getAccessToken()}`,
       });
 
