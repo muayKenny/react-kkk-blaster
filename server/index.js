@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 
 const port = process.env.PORT || 80;
-
+console.log(process.env.PORT);
 const client = jwksClient({
     jwksUri: process.env.JWKS_URI
 });
