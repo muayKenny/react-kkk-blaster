@@ -9,7 +9,7 @@ import HttpsRedirect from 'react-https-redirect'
 const port = process.env.PORT || 80;
 
 let auth0_uri;
-console.log(process.env.NODE_ENV);
+console.log(port);
 if (process.env.NODE_ENV !== 'production') {
   auth0_uri = 'http://localhost:5000'
 } else {
